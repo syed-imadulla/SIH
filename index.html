@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gamified Learning Platform for Rural Education</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        :root {
+            --primary: #3b5bdb;
+            --accent: #ffd54a;
+            --light: #f8f9fa;
+            --white: #ffffff;
+            --dark: #333333;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --radius: 12px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+        
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background-color: #2a4ac6;
+            transform: translateY(-2px);
+        }
+        
+        .btn-accent {
+            background-color: var(--accent);
+            color: var(--dark);
+        }
+        
+        .btn-accent:hover {
+            background-color: #ffc61a;
+        }
+        
+        .section {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.2rem;
+            color: var(--primary);
+        }
+        
+        .card {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .language-toggle {
+            background: none;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 0.4rem 0.8rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #f0f4ff 0%, #e6f0ff 100%);
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+        
+        .hero-text {
+            flex: 1;
+        }
+        
+        .hero-title {
+            font-size: 2.8rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero-description {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #555;
+        }
+        
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .hero-illustration {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .problem-statement {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .ps-id {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            text-align: center;
+            padding: 2rem 1.5rem;
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        /* Demo Section */
+        .demo-container {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Competitor Comparison */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background-color: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .comparison-table th, .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comparison-table th {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .checkmark {
+            color: #22bb33;
+            font-weight: bold;
+        }
+        
+        .cross {
+            color: #bb2124;
+            font-weight: bold;
+        }
+        
+        /* How It Works */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .step-card {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .step-number {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin: 0 auto 1.5rem;
+        }
+        
+        /* Team Section */
+        .team-members {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .team-card {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .team-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            background-color: #e0e7ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin: 0 auto 1rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: background-color 0.2s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #555;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: var(--radius);
+            width: 90%;
+            max-width: 600px;
+            padding: 2rem;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+        }
+        
+        .quiz-container {
+            margin: 1.5rem 0;
+        }
+        
+        .quiz-question {
+            margin-bottom: 1.5rem;
+        }
+        
+        .quiz-options {
+            list-style: none;
+        }
+        
+        .quiz-options li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .quiz-options label {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem 1rem;
+            background-color: #f5f7ff;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .quiz-options label:hover {
+            background-color: #e0e7ff;
+        }
+        
+        .quiz-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1.5rem;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .section {
+                padding: 3rem 0;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+            }
+            
+            .comparison-table {
+                font-size: 0.9rem;
+            }
+            
+            .steps {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo">
+                <i class="fas fa-book-open"></i>
+                <span>RuralEduPlay</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#about">About</a>
+                <a href="#features">Features</a>
+                <a href="#demo">Demo</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#team">Team</a>
+            </nav>
+            <button class="language-toggle" id="languageToggle">
+                <i class="fas fa-language"></i>
+                <span>English</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title" data-en="Gamified Learning Platform for Rural Education" data-lang="प rural शिक्षा के लिए gamified learning platform">Gamified Learning Platform for Rural Education</h1>
+                <p class="hero-description" data-en="Engaging STEM education for grades 6-12 with limited internet access" data-lang="6-12 कक्षाओं के लिए engaging STEM शिक्षा, सीमित internet access के साथ">Engaging STEM education for grades 6-12 with limited internet access</p>
+                <div class="cta-buttons">
+                    <a href="#demo" class="btn">View Demo</a>
+                    <a href="#features" class="btn btn-accent">Explore Features</a>
+                </div>
+                <div class="offline-hint">
+                    <i class="fas fa-wifi"></i>
+                    <span data-en="Content available offline after first download" data-lang="पहली बार डाउनलोड के बाद content offline उपलब्ध">Content available offline after first download</span>
+                </div>
+            </div>
+            <div class="hero-image">
+                <svg class="hero-illustration" width="400" height="300" viewBox="0 0 400 300">
+                    <rect x="50" y="50" width="300" height="200" rx="10" fill="#3b5bdb" opacity="0.1"/>
+                    <circle cx="200" cy="120" r="50" fill="#3b5bdb" opacity="0.2"/>
+                    <rect x="170" y="90" width="60" height="60" rx="10" fill="#3b5bdb"/>
+                    <circle cx="200" cy="120" r="20" fill="#ffd54a"/>
+                    <rect x="120" y="180" width="160" height="40" rx="5" fill="#3b5bdb"/>
+                    <rect x="130" y="190" width="40" height="20" rx="3" fill="#ffd54a"/>
+                    <rect x="180" y="190" width="40" height="20" rx="3" fill="white"/>
+                    <rect x="230" y="190" width="40" height="20" rx="3" fill="white"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About The Project</h2>
+            <div class="about-content">
+                <div class="problem-statement">
+                    <span class="ps-id">Problem Statement ID: 25048</span>
+                    <p data-en="Build a gamified digital platform to enhance learning outcomes for students in rural schools (grades 6–12), focusing on STEM. The platform should use interactive games, multilingual content, and offline access to engage students with limited internet connectivity." data-lang="ग्रामीण schools में छात्रों के learning outcomes को बढ़ाने के लिए एक gamified digital platform बनाएं (कक्षा 6-12), STEM पर ध्यान केंद्रित करें। यह platform interactive games, multilingual content, और offline access का उपयोग limited internet connectivity वाले छात्रों को engage करने के लिए करेगा।">
+                        Build a gamified digital platform to enhance learning outcomes for students in rural schools (grades 6–12), focusing on STEM. The platform should use interactive games, multilingual content, and offline access to engage students with limited internet connectivity.
+                    </p>
+                    <h3>Expected Outcome</h3>
+                    <ul>
+                        <li data-en="Increase student engagement by ~15%" data-lang="छात्र engagement में ~15% की वृद्धि">Increase student engagement by ~15%</li>
+                        <li data-en="Simple analytics dashboard for teachers" data-lang="शिक्षकों के लिए सरल analytics dashboard">Simple analytics dashboard for teachers</li>
+                        <li data-en="Deployable on low-cost devices" data-lang="कम लागत वाले devices पर deployable">Deployable on low-cost devices</li>
+                    </ul>
+                    <h3>Technical Feasibility</h3>
+                    <ul>
+                        <li>HTML5/CSS3 and vanilla JavaScript</li>
+                        <li>Service workers for offline functionality</li>
+                        <li>Lightweight and compatible with low-end browsers</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Why This Matters</h3>
+                    <p>Rural schools often face challenges with internet connectivity and access to engaging educational resources. Our platform addresses these issues by providing offline-first, gamified learning experiences that work even on low-cost devices.</p>
+                    <div class="card">
+                        <i class="fas fa-graduation-cap feature-icon"></i>
+                        <h4>Education Equality</h4>
+                        <p>Bridging the educational gap between urban and rural students through technology.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section" style="background-color: #f0f4ff;">
+        <div class="container">
+            <h2 class="section-title">Key Features</h2>
+            <div class="features">
+                <div class="card feature-card">
+                    <i class="fas fa-gamepad feature-icon"></i>
+                    <h3>Gamified Learning</h3>
+                    <p>Points, badges, and levels to motivate students and make learning fun and engaging.</p>
+                </div>
+                <div class="card feature-card">
+                    <i class="fas fa-wifi feature-icon"></i>
+                    <h3>Offline-First</h3>
+                    <p>Content is available without internet connection after initial download, perfect for areas with poor connectivity.</p>
+                </div>
+                <div class="card feature-card">
+                    <i class="fas fa-language feature-icon"></i>
+                    <h3>Multilingual Support</h3>
+                    <p>Content available in English and local languages to cater to diverse student needs.</p>
+                </div>
+                <div class="card feature-card">
+                    <i class="fas fa-chart-line feature-icon"></i>
+                    <h3>Teacher Dashboard</h3>
+                    <p>Simple analytics to track student progress and engagement with easy content upload.</p>
+                </div>
+                <div class="card feature-card">
+                    <i class="fas fa-mobile-alt feature-icon"></i>
+                    <h3>Lightweight Design</h3>
+                    <p>Runs smoothly on low-cost devices and basic browsers, optimized for performance.</p>
+                </div>
+                <div class="card feature-card">
+                    <i class="fas fa-trophy feature-icon"></i>
+                    <h3>Reward System</h3>
+                    <p>Badges and certificates to celebrate student achievements and milestones.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="section">
+        <div class="container">
+            <h2 class="section-title">Interactive Demo</h2>
+            <div class="demo-container">
+                <p>Experience a sample quiz from our platform. The actual implementation includes more subjects, game mechanics, and detailed analytics.</p>
+                <button id="demoButton" class="btn" style="margin-top: 2rem;">
+                    <i class="fas fa-play-circle"></i> Try Demo Quiz
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Competitor Comparison -->
+    <section class="section" style="background-color: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title">Comparison With Existing Solutions</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Kahoot</th>
+                        <th>Quizizz</th>
+                        <th>Quizlet</th>
+                        <th>Our Solution</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Offline Access</td>
+                        <td class="cross">No</td>
+                        <td class="cross">No</td>
+                        <td class="cross">Limited</td>
+                        <td class="checkmark">Yes</td>
+                    </tr>
+                    <tr>
+                        <td>Local Language Support</td>
+                        <td class="cross">Limited</td>
+                        <td class="cross">Limited</td>
+                        <td class="checkmark">Yes</td>
+                        <td class="checkmark">Yes</td>
+                    </tr>
+                    <tr>
+                        <td>Works on Low-End Devices</td>
+                        <td class="cross">No</td>
+                        <td class="cross">No</td>
+                        <td class="checkmark">Yes</td>
+                        <td class="checkmark">Yes</td>
+                    </tr>
+                    <tr>
+                        <td>Teacher-Friendly Analytics</td>
+                        <td class="checkmark">Yes</td>
+                        <td class="checkmark">Yes</td>
+                        <td class="cross">No</td>
+                        <td class="checkmark">Yes</td>
+                    </tr>
+                    <tr>
+                        <td>Gamified Learning</td>
+                        <td class="checkmark">Yes</td>
+                        <td class="checkmark">Yes</td>
+                        <td class="cross">Basic</td>
+                        <td class="checkmark">Yes</td>
+                    </tr>
+                    <tr>
+                        <td>No Internet Required</td>
+                        <td class="cross">No</td>
+                        <td class="cross">No</td>
+                        <td class="cross">No</td>
+                        <td class="checkmark">Yes</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="section">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps">
+                <div class="card step-card">
+                    <div class="step-number">1</div>
+                    <i class="fas fa-upload feature-icon"></i>
+                    <h3>Teacher Adds Content</h3>
+                    <p>Teachers can easily upload quizzes and lessons through a simple form interface.</p>
+                </div>
+                <div class="card step-card">
+                    <div class="step-number">2</div>
+                    <i class="fas fa-gamepad feature-icon"></i>
+                    <h3>Student Plays & Learns</h3>
+                    <p>Students access content offline, play educational games, and earn rewards.</p>
+                </div>
+                <div class="card step-card">
+                    <div class="step-number">3</div>
+                    <i class="fas fa-chart-pie feature-icon"></i>
+                    <h3>Teacher Views Analytics</h3>
+                    <p>Teachers monitor progress through simple dashboards and adjust content as needed.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="section" style="background-color: #f0f4ff;">
+        <div class="container">
+            <h2 class="section-title">Our Team</h2>
+            <div class="team-members">
+                <div class="card team-card">
+                    <div class="team-photo">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>Rahul Sharma</h3>
+                    <p>Project Lead & Full Stack Developer</p>
+                </div>
+                <div class="card team-card">
+                    <div class="team-photo">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>Priya Patel</h3>
+                    <p>UI/UX Designer & Frontend Developer</p>
+                </div>
+                <div class="card team-card">
+                    <div class="team-photo">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>Amit Kumar</h3>
+                    <p>Backend Developer & Database Specialist</p>
+                </div>
+                <div class="card team-card">
+                    <div class="team-photo">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>Neha Singh</h3>
+                    <p>Content Creator & Education Specialist</p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 3rem;">
+                <h3>Contact Us</h3>
+                <p>Email: contact@ruraleduplay.com</p>
+                <p>GitHub: github.com/ruraleduplay</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div>
+                <div class="footer-logo">RuralEduPlay</div>
+                <p>Gamified learning platform for rural education focusing on STEM subjects for grades 6-12.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div>
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#demo">Demo</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">Teacher Guide</a></li>
+                    <li><a href="#">Research Paper</a></li>
+                    <li><a href="#">Case Studies</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container copyright">
+            <p>&copy; 2023 RuralEduPlay. All rights reserved. | SIH Problem Statement ID: 25048</p>
+        </div>
+    </footer>
+
+    <!-- Demo Modal -->
+    <div class="modal" id="demoModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <h2>Sample Quiz: Mathematics</h2>
+            <div class="quiz-container">
+                <div class="quiz-question" id="question1">
+                    <h3>Question 1: What is the value of π (pi) rounded to two decimal places?</h3>
+                    <ul class="quiz-options">
+                        <li>
+                            <input type="radio" name="q1" id="q1a1" value="a">
+                            <label for="q1a1">3.14</label>
+                        </li>
+                        <li>
+                            <input type="radio" name="q1" id="q1a2" value="b">
+                            <label for="q1a2">3.15</label>
+                        </li>
+                        <li>
+                            <input type="radio" name="q1" id="q1a3" value="c">
+                            <label for="q1a3">3.16</label>
+                        </li>
+                        <li>
+                            <input type="radio" name="q1" id="q1a4" value="d">
+                            <label for="q1a4">3.13</label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="quiz-question" id="question2" style="display: none;">
+                    <h3>Question 2: Solve for x: 2x + 5 = 15</h3>
+                    <ul class="quiz-options">
+                        <li>
+                            <input type="radio" name="q2" id="q2a1" value="a">
+                            <label for="q2a1">x = 5</label>
+                        </li>
+                        <li>
+                            <input type="radio" name="q2" id="q2a2" value="b">
+                            <label for="q2a2">x = 10</label>
+                        </li>
+                        <li>
+                            <input type="radio" name="q2" id="q2a3" value="c">
+                            <label for="q2a3">x = 7.5</label>
+                        </li>
+                        <li>
+                            <input type="radio" name="q2" id="q2a4" value="d">
+                            <label for="q2a4">x = 6</label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="quiz-question" id="question3" style="display: none;">
+                    <h3>Question 3: What is the area of a circle with radius 5 units?</h3>
+                    <ul class="quiz-options">
+                        <li>
+                            <input type="radio" name="q3" id="q3a1" value="a">
+                            <label for="q3a1">25π square units</label>
+                        </li>
+                        <li>
+                            <input type="radio" name="q3" id="q3a2" value="b">
+                            <label for="q3a2">10π square units</label>
+                        </li>
+                        <li>
+                            <input type="radio" name="q3" id="q3a3" value="c">
+                            <label for="q3a3">5π square units</label>
+                        </li>
+                        <li>
+                            <input type="radio" name="q3" id="q3a4" value="d">
+                            <label for="q3a4">50π square units</label>
+                        </li>
+                    </ul>
+                </div>
+                <div id="quizResults" style="display: none;">
+                    <h3>Quiz Results</h3>
+                    <p>You scored <span id="score">0</span> out of 3!</p>
+                    <div id="badgeEarned" style="text-align: center; margin: 1.5rem 0;">
+                        <i class="fas fa-medal" style="font-size: 3rem; color: #ffd54a;"></i>
+                        <p>Math Beginner Badge Earned!</p>
+                    </div>
+                    <button class="btn" id="restartQuiz">Try Again</button>
+                </div>
+            </div>
+            <div class="quiz-nav">
+                <button class="btn btn-accent" id="prevQuestion" style="display: none;">Previous</button>
+                <button class="btn" id="nextQuestion">Next</button>
+                <button class="btn" id="submitQuiz" style="display: none;">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Language Toggle Functionality
+        const languageToggle = document.getElementById('languageToggle');
+        let currentLanguage = 'en';
+        
+        languageToggle.addEventListener('click', () => {
+            const elements = document.querySelectorAll('[data-en][data-lang]');
+            const languageText = languageToggle.querySelector('span');
+            
+            if (currentLanguage === 'en') {
+                // Switch to local language
+                elements.forEach(element => {
+                    if (element.hasAttribute('data-lang')) {
+                        element.textContent = element.getAttribute('data-lang');
+                    }
+                });
+                languageText.textContent = 'हिंदी';
+                currentLanguage = 'lang';
+            } else {
+                // Switch back to English
+                elements.forEach(element => {
+                    if (element.hasAttribute('data-en')) {
+                        element.textContent = element.getAttribute('data-en');
+                    }
+                });
+                languageText.textContent = 'English';
+                currentLanguage = 'en';
+            }
+        });
+        
+        // Demo Modal Functionality
+        const demoButton = document.getElementById('demoButton');
+        const demoModal = document.getElementById('demoModal');
+        const closeModal = document.getElementById('closeModal');
+        const nextQuestion = document.getElementById('nextQuestion');
+        const prevQuestion = document.getElementById('prevQuestion');
+        const submitQuiz = document.getElementById('submitQuiz');
+        const restartQuiz = document.getElementById('restartQuiz');
+        let currentQuestion = 1;
+        const totalQuestions = 3;
+        
+        // Show modal when demo button is clicked
+        demoButton.addEventListener('click', () => {
+            demoModal.style.display = 'flex';
+            currentQuestion = 1;
+            document.getElementById('question1').style.display = 'block';
+            document.getElementById('question2').style.display = 'none';
+            document.getElementById('question3').style.display = 'none';
+            document.getElementById('quizResults').style.display = 'none';
+            prevQuestion.style.display = 'none';
+            nextQuestion.style.display = 'block';
+            submitQuiz.style.display = 'none';
+            
+            // Reset all radio buttons
+            const radioButtons = document.querySelectorAll('input[type="radio"]');
+            radioButtons.forEach(radio => {
+                radio.checked = false;
+            });
+        });
+        
+        // Close modal when X is clicked
+        closeModal.addEventListener('click', () => {
+            demoModal.style.display = 'none';
+        });
+        
+        // Close modal when clicking outside the modal content
+        demoModal.addEventListener('click', (e) => {
+            if (e.target === demoModal) {
+                demoModal.style.display = 'none';
+            }
+        });
+        
+        // Next question button
+        nextQuestion.addEventListener('click', () => {
+            // Validate that an option is selected
+            const selectedOption = document.querySelector(`input[name="q${currentQuestion}"]:checked`);
+            if (!selectedOption) {
+                alert('Please select an answer before proceeding.');
+                return;
+            }
+            
+            // Hide current question
+            document.getElementById(`question${currentQuestion}`).style.display = 'none';
+            
+            // Show next question or results
+            currentQuestion++;
+            if (currentQuestion <= totalQuestions) {
+                document.getElementById(`question${currentQuestion}`).style.display = 'block';
+            }
+            
+            // Show previous button if not on first question
+            if (currentQuestion > 1) {
+                prevQuestion.style.display = 'block';
+            }
+            
+            // Show submit button if on last question
+            if (currentQuestion === totalQuestions) {
+                nextQuestion.style.display = 'none';
+                submitQuiz.style.display = 'block';
+            }
+        });
+        
+        // Previous question button
+        prevQuestion.addEventListener('click', () => {
+            // Hide current question
+            document.getElementById(`question${currentQuestion}`).style.display = 'none';
+            
+            // Show previous question
+            currentQuestion--;
+            document.getElementById(`question${currentQuestion}`).style.display = 'block';
+            
+            // Hide previous button if on first question
+            if (currentQuestion === 1) {
+                prevQuestion.style.display = 'none';
+            }
+            
+            // Always show next button when going back
+            nextQuestion.style.display = 'block';
+            submitQuiz.style.display = 'none';
+        });
+        
+        // Submit quiz
+        submitQuiz.addEventListener('click', () => {
+            // Calculate score (correct answers: q1=a, q2=a, q3=a)
+            let score = 0;
+            if (document.querySelector('input[name="q1"]:checked')?.value === 'a') score++;
+            if (document.querySelector('input[name="q2"]:checked')?.value === 'a') score++;
+            if (document.querySelector('input[name="q3"]:checked')?.value === 'a') score++;
+            
+            // Hide questions and show results
+            document.getElementById('question3').style.display = 'none';
+            document.getElementById('quizResults').style.display = 'block';
+            document.getElementById('score').textContent = score;
+            
+            // Hide navigation buttons
+            prevQuestion.style.display = 'none';
+            submitQuiz.style.display = 'none';
+        });
+        
+        // Restart quiz
+        restartQuiz.addEventListener('click', () => {
+            // Reset to first question
+            document.getElementById('quizResults').style.display = 'none';
+            document.getElementById('question1').style.display = 'block';
+            currentQuestion = 1;
+            prevQuestion.style.display = 'none';
+            nextQuestion.style.display = 'block';
+            
+            // Reset all radio buttons
+            const radioButtons = document.querySelectorAll('input[type="radio"]');
+            radioButtons.forEach(radio => {
+                radio.checked = false;
+            });
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
